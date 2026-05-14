@@ -92,7 +92,7 @@ interface RobotOverviewStat {
 }
 
 export const RobotOverviewStatGrid = component$(
-  ({ stats }: { stats: RobotOverviewStat[] }) => {
+  ({ stats }: { stats: ReadonlyArray<RobotOverviewStat> }) => {
     return (
       <div class="grid gap-4 sm:grid-cols-3">
         {stats.map((stat) => (
@@ -123,7 +123,13 @@ interface RobotOverviewFeature {
 }
 
 export const RobotOverviewFeatureGrid = component$(
-  ({ title, items }: { title: string; items: RobotOverviewFeature[] }) => {
+  ({
+    title,
+    items,
+  }: {
+    title: string;
+    items: ReadonlyArray<RobotOverviewFeature>;
+  }) => {
     return (
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-3">

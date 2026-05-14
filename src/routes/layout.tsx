@@ -135,7 +135,6 @@ export default component$(() => {
     }
 
     if (event.key === 'Escape') {
-      event.preventDefault();
       container
         .querySelector<HTMLAnchorElement>('[data-robots-trigger]')
         ?.focus();
@@ -145,8 +144,6 @@ export default component$(() => {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
       return;
     }
-
-    event.preventDefault();
 
     const activeElement = document.activeElement as HTMLAnchorElement | null;
     const currentIndex = activeElement ? links.indexOf(activeElement) : -1;
