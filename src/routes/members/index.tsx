@@ -5,7 +5,7 @@ const members = [
     name: 'Avery Cole',
     role: 'Team Captain',
     description:
-      'Guides strategy, drive practice, and match prep while keeping the team aligned on goals and deadlines.',
+      'Guides strategy, drives practice, and match prep while keeping the team aligned on goals and deadlines.',
     focus: 'Alliance strategy',
     image: '/members/avery.svg',
   },
