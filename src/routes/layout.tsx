@@ -124,10 +124,7 @@ export default component$(() => {
           <Link href={'/'}>
             <Logo class="h-[40px] w-[40px]" />
           </Link>
-          <ul
-            class="grid grid-cols-3 items-center gap-x-[16px] sm:flex text-lg font-bold"
-            role="list"
-          >
+          <ul class="grid grid-cols-3 items-center gap-x-[16px] sm:flex text-lg font-bold">
             {pages.map((page, key) => {
               const isActive =
                 !page.blank &&

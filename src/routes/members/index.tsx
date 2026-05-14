@@ -59,7 +59,7 @@ export default component$(() => {
               <div class="flex items-center gap-4">
                 <img
                   src={member.image}
-                  alt={`${member.name}, ${member.role}`}
+                  alt={`Portrait of ${member.name}`}
                   width="80"
                   height="80"
                   class="h-20 w-20 rounded-[12px] border border-border object-cover"
