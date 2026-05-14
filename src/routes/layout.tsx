@@ -84,16 +84,21 @@ export const DecryptText = component$(({ content }: { content: string }) => {
 
 export default component$(() => {
   const pages = [
-      {
-          name: 'matches',
-          url: 'https://ftcscout.org/teams/15534',
-          blank: true
-      },
-      {
-          name: 'contact',
-          url: 'mailto:vertex15534@gmail.com',
-          blank: true
-      }
+    {
+      name: 'members',
+      url: '/members',
+      blank: false,
+    },
+    {
+      name: 'matches',
+      url: 'https://ftcscout.org/teams/15534',
+      blank: true,
+    },
+    {
+      name: 'contact',
+      url: 'mailto:vertex15534@gmail.com',
+      blank: true,
+    },
   ] as const;
 
   const location = useLocation();
@@ -116,23 +121,30 @@ export default component$(() => {
           <Link href={'/'}>
             <Logo class="h-[40px] w-[40px]" />
           </Link>
-          <ul class="grid grid-cols-2 items-center gap-x-[16px] sm:flex sm:grid-cols-4 text-lg font-bold">
-            {pages.map((page, key) => (
-              <li
-                class={
-                  'duration-200 hover:text-branding' +
-                  (location.url.pathname === `/${page.url}/`
-                    ? ' text-branding'
-                    : '')
-                }
-                key={key}
-              >
-                <Link href={page.url} target={page.blank ? "_blank"
-                : "_self"}>
-                  <DecryptText content={page.name} />
-                </Link>
-              </li>
-            ))}
+          <ul class="grid grid-cols-3 items-center gap-x-[16px] sm:flex sm:grid-cols-4 text-lg font-bold">
+            {pages.map((page, key) => {
+              const isActive =
+                !page.blank &&
+                (location.url.pathname === page.url ||
+                  location.url.pathname === `${page.url}/`);
+              return (
+                <li
+                  class={
+                    'duration-200 hover:text-branding' +
+                    (isActive ? ' text-branding' : '')
+                  }
+                  key={key}
+                >
+                  <Link
+                    href={page.url}
+                    target={page.blank ? '_blank' : '_self'}
+                    rel={page.blank ? 'noreferrer' : undefined}
+                  >
+                    <DecryptText content={page.name} />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </header>
