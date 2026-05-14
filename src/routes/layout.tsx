@@ -125,6 +125,7 @@ export default component$(() => {
   ] as const;
 
   const location = useLocation();
+  const robotsMenuOpen = useSignal(false);
   const handleSeasonKeydown = $((event: KeyboardEvent) => {
     const container = event.currentTarget as HTMLElement;
     const links = Array.from(
@@ -176,7 +177,7 @@ export default component$(() => {
           <Link href={'/'}>
             <Logo class="h-[40px] w-[40px]" />
           </Link>
-          <ul class="grid grid-cols-2 items-center gap-4 text-lg font-bold sm:grid-cols-4">
+          <ul class="grid grid-cols-2 items-center gap-x-[16px] gap-y-4 text-lg font-bold sm:grid-cols-4">
             {pages.map((page, key) => {
               const isActive =
                 !page.blank &&
@@ -188,6 +189,22 @@ export default component$(() => {
                     class="relative group"
                     key={key}
                     onKeyDown$={handleSeasonKeydown}
+                    onMouseEnter$={() => {
+                      robotsMenuOpen.value = true;
+                    }}
+                    onMouseLeave$={() => {
+                      robotsMenuOpen.value = false;
+                    }}
+                    onFocusIn$={() => {
+                      robotsMenuOpen.value = true;
+                    }}
+                    onFocusOut$={(event) => {
+                      const currentTarget = event.currentTarget as HTMLElement | null;
+                      const nextTarget = event.relatedTarget as Node | null;
+                      if (!currentTarget || !currentTarget.contains(nextTarget)) {
+                        robotsMenuOpen.value = false;
+                      }
+                    }}
                   >
                     <Link
                       href={page.url}
@@ -196,6 +213,7 @@ export default component$(() => {
                         (isActive ? ' text-branding' : '')
                       }
                       aria-haspopup="true"
+                      aria-expanded={robotsMenuOpen.value}
                       data-robots-trigger
                     >
                       <DecryptText content={page.name} />
