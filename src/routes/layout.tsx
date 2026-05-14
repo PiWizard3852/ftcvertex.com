@@ -85,6 +85,11 @@ export const DecryptText = component$(({ content }: { content: string }) => {
 export default component$(() => {
   const pages = [
     {
+      name: 'robots',
+      url: '/robots',
+      blank: false,
+    },
+    {
       name: 'members',
       url: '/members',
       blank: false,
@@ -98,6 +103,24 @@ export default component$(() => {
       name: 'contact',
       url: 'mailto:vertex15534@gmail.com',
       blank: true,
+    },
+  ] as const;
+
+  const robotSeasons = [
+    {
+      name: 'Into the Deep',
+      season: '2024-2025',
+      url: '/robots#into-the-deep',
+    },
+    {
+      name: 'Centerstage',
+      season: '2023-2024',
+      url: '/robots#centerstage',
+    },
+    {
+      name: 'PowerPlay',
+      season: '2022-2023',
+      url: '/robots#powerplay',
     },
   ] as const;
 
@@ -124,12 +147,54 @@ export default component$(() => {
           <Link href={'/'}>
             <Logo class="h-[40px] w-[40px]" />
           </Link>
-          <ul class="grid grid-cols-3 items-center gap-x-[16px] sm:flex text-lg font-bold">
+          <ul class="grid grid-cols-2 items-center gap-4 text-lg font-bold sm:flex">
             {pages.map((page, key) => {
               const isActive =
                 !page.blank &&
                 (location.url.pathname === page.url ||
                   location.url.pathname === `${page.url}/`);
+              if (page.name === 'robots') {
+                return (
+                  <li class="relative group" key={key}>
+                    <Link
+                      href={page.url}
+                      class={
+                        'flex items-center gap-2 duration-200 hover:text-branding' +
+                        (isActive ? ' text-branding' : '')
+                      }
+                      aria-haspopup="true"
+                    >
+                      <DecryptText content={page.name} />
+                      <span class="text-xs transition-transform duration-200 group-hover:translate-y-[1px]">
+                        ▾
+                      </span>
+                    </Link>
+                    <div class="absolute left-1/2 top-full z-10 w-[240px] -translate-x-1/2 translate-y-2 opacity-0 pointer-events-none transition duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 group-focus-within:pointer-events-auto">
+                      <div class="rounded-[14px] border border-border bg-black/80 p-3 shadow-lg backdrop-blur-md">
+                        <p class="px-2 text-[10px] uppercase tracking-[0.35em] text-white/50">
+                          season index
+                        </p>
+                        <div class="mt-3 flex flex-col gap-2">
+                          {robotSeasons.map((season) => (
+                            <Link
+                              key={season.name}
+                              href={season.url}
+                              class="group/season rounded-[10px] border border-transparent px-2 py-2 transition duration-200 hover:border-border hover:bg-white/5"
+                            >
+                              <p class="text-[11px] uppercase tracking-[0.25em] text-white/50">
+                                {season.season}
+                              </p>
+                              <p class="text-sm font-bold uppercase group-hover/season:text-branding">
+                                {season.name}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
               return (
                 <li
                   class={
