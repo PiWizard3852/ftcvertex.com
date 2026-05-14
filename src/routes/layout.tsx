@@ -216,7 +216,7 @@ export default component$(() => {
                             <Link
                               key={season.name}
                               href={season.url}
-                              class="group/season rounded-[10px] border border-transparent px-2 py-2 transition duration-200 hover:border-border hover:bg-white/5"
+                              class="group/season rounded-[10px] border border-transparent p-2 transition duration-200 hover:border-border hover:bg-white/5"
                               data-season-link
                               role="menuitem"
                             >
