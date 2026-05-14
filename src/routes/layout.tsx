@@ -176,7 +176,7 @@ export default component$(() => {
           <Link href={'/'}>
             <Logo class="h-[40px] w-[40px]" />
           </Link>
-          <ul class="grid grid-cols-2 items-center gap-4 text-lg font-bold sm:flex">
+          <ul class="grid grid-cols-2 items-center gap-4 text-lg font-bold sm:grid-cols-4">
             {pages.map((page, key) => {
               const isActive =
                 !page.blank &&
@@ -204,7 +204,10 @@ export default component$(() => {
                       </span>
                     </Link>
                     <div class="absolute left-1/2 top-full z-10 w-[240px] -translate-x-1/2 translate-y-2 opacity-0 pointer-events-none transition duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 group-focus-within:pointer-events-auto">
-                      <div class="rounded-[14px] border border-border bg-black/80 p-3 shadow-lg backdrop-blur-md">
+                      <div
+                        class="rounded-[14px] border border-border bg-black/80 p-3 shadow-lg backdrop-blur-md"
+                        role="menu"
+                      >
                         <p class="px-2 text-[10px] uppercase tracking-[0.35em] text-white/50">
                           season index
                         </p>
@@ -215,6 +218,7 @@ export default component$(() => {
                               href={season.url}
                               class="group/season rounded-[10px] border border-transparent px-2 py-2 transition duration-200 hover:border-border hover:bg-white/5"
                               data-season-link
+                              role="menuitem"
                             >
                               <p class="text-[11px] uppercase tracking-[0.25em] text-white/50">
                                 {season.season}
