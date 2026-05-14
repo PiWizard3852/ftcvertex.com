@@ -1,4 +1,4 @@
-import { Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { $, Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Link, type RequestHandler, useLocation } from '@builder.io/qwik-city';
 
 import Lenis from 'lenis';
@@ -125,6 +125,38 @@ export default component$(() => {
   ] as const;
 
   const location = useLocation();
+  const handleSeasonKeydown = $((event: KeyboardEvent) => {
+    const container = event.currentTarget as HTMLElement;
+    const links = Array.from(
+      container.querySelectorAll<HTMLAnchorElement>('[data-season-link]'),
+    );
+    if (links.length === 0) {
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      container
+        .querySelector<HTMLAnchorElement>('[data-robots-trigger]')
+        ?.focus();
+      return;
+    }
+
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+      return;
+    }
+
+    event.preventDefault();
+
+    const activeElement = document.activeElement as HTMLAnchorElement | null;
+    const currentIndex = activeElement ? links.indexOf(activeElement) : -1;
+    const delta = event.key === 'ArrowDown' ? 1 : -1;
+    const nextIndex =
+      currentIndex === -1
+        ? 0
+        : (currentIndex + delta + links.length) % links.length;
+    links[nextIndex]?.focus();
+  });
 
   useVisibleTask$(() => {
     const lenis = new Lenis();
@@ -155,7 +187,11 @@ export default component$(() => {
                   location.url.pathname === `${page.url}/`);
               if (page.name === 'robots') {
                 return (
-                  <li class="relative group" key={key}>
+                  <li
+                    class="relative group"
+                    key={key}
+                    onKeyDown$={handleSeasonKeydown}
+                  >
                     <Link
                       href={page.url}
                       class={
@@ -163,6 +199,7 @@ export default component$(() => {
                         (isActive ? ' text-branding' : '')
                       }
                       aria-haspopup="true"
+                      data-robots-trigger
                     >
                       <DecryptText content={page.name} />
                       <span class="text-xs transition-transform duration-200 group-hover:translate-y-[1px]">
@@ -180,6 +217,7 @@ export default component$(() => {
                               key={season.name}
                               href={season.url}
                               class="group/season rounded-[10px] border border-transparent px-2 py-2 transition duration-200 hover:border-border hover:bg-white/5"
+                              data-season-link
                             >
                               <p class="text-[11px] uppercase tracking-[0.25em] text-white/50">
                                 {season.season}

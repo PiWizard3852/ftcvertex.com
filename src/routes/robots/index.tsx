@@ -352,7 +352,7 @@ export default component$(() => {
           season={season.season}
           summary={season.summary}
         >
-          <RobotOverviewStatGrid stats={[...season.stats]} />
+          <RobotOverviewStatGrid stats={season.stats} />
           <RobotOverviewGrid columns={2}>
             {season.showcases.map((showcase) => (
               <RobotOverviewShowcase
@@ -365,11 +365,11 @@ export default component$(() => {
           </RobotOverviewGrid>
           <RobotOverviewFeatureGrid
             title="Key systems"
-            items={[...season.systems]}
+            items={season.systems}
           />
           <RobotOverviewFeatureGrid
             title="Match flow"
-            items={[...season.strategy]}
+            items={season.strategy}
           />
           <RobotOverviewGrid columns={3}>
             {season.buildNotes.map((note) => (
