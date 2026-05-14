@@ -60,8 +60,8 @@ export default component$(() => {
                 <img
                   src={member.image}
                   alt={`${member.name} portrait`}
-                  width="96"
-                  height="96"
+                  width="80"
+                  height="80"
                   class="h-20 w-20 rounded-[12px] border border-border object-cover"
                 />
                 <div class="flex flex-col gap-1">
